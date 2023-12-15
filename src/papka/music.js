@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addSong, removeSong } from './redux/actions';
+import { AddSong, RemoveSong } from './redux/actions';
 
 
 const About = () => {

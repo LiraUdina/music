@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { addSong, removeSong } from './redux/actions';
+import { AddSong, RemoveSong } from './redux/actions';
 import { About } from './papka/music';
 import { Home } from './papka/zhanri';
 
