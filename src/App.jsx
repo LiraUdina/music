@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { HashRouter, Route, Routes } from 'react-router-dom';
-import { AddSong, RemoveSong } from './redux/actions';
+import {Route, Routes } from 'react-router-dom';
 import { About } from './papka/music';
 import { Home } from './papka/zhanri';
+import { Str} from './Str';
+import './App.css';
+
 
 const store = createStore(rootReducer);
 
