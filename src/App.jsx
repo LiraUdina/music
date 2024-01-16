@@ -1,23 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Route, Routes } from 'react-router-dom';
-import { About } from './papka/music';
-import { Home } from './papka/zhanri';
+import { Routes, Route } from 'react-router-dom'
+import { About } from './papka/About';
+import Home from "./papka/Home";
 import { Str} from './Str';
 import './App.css';
 
+function App() {
+ 
+  return (
+    <>
+    <Str/>
 
-const store = createStore(rootReducer);
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/About" element={<About/>}></Route>
+      </Routes>
+      
+     </>
+  );
+}
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <HashRouter>
-      <Provider store={store}>
-        <Routes>
-          <Route path="/" element={<About />} />
-          <Route path="/zhanri" element={<Home />} />
-        </Routes>
-      </Provider>
-    </HashRouter>
-  </React.StrictMode>
-);
+export default App;
