@@ -1,22 +1,20 @@
-import { Routes, Route } from 'react-router-dom'
-import { About } from './papka/About';
-import Home from "./papka/Home";
-import { Str} from './Str';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import SongList from './components/SongList';
+import GenreList from './components/GenreList';
+import { Str } from './Str';
 
-function App() {
- 
+const App = () => {
   return (
     <>
-    <Str/>
+      <Str />
 
       <Routes>
-        <Route path="/" element={<Home/>}></Route>
-        <Route path="/About" element={<About/>}></Route>
+        <Route path="/" element={<SongList />} />
+        <Route path="/genres" element={<GenreList />} />
       </Routes>
-      
-     </>
+    </>
   );
-}
+};
 
 export default App;
