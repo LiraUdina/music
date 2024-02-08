@@ -11,7 +11,7 @@ const GenreList = () => {
 
   return (
     <div>
-      <h2>Genre List</h2>
+      <h2>Музыкальные жанры</h2>
       {/* Отображение списка жанров */}
     </div>
   );
