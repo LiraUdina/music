@@ -1,5 +1,5 @@
 const initialState = {
-  genres: [],
+  genres: [], // Изначально список пуст
 };
 
 const genreReducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ const genreReducer = (state = initialState, action) => {
     case 'REMOVE_GENRE':
       return {
         ...state,
-        genres: state.genres.filter((genre) => genre.id !== action.payload),
+        genres: state.genres.filter((genre) => genre !== action.payload),
       };
     default:
       return state;

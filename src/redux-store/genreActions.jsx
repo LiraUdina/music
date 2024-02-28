@@ -3,7 +3,7 @@ export const addGenre = (genre) => ({
   payload: genre,
 });
 
-export const removeGenre = (genreId) => ({
+export const removeGenre = (genre) => ({
   type: 'REMOVE_GENRE',
-  payload: genreId,
+  payload: genre,
 });

@@ -4,15 +4,23 @@ import { addSong, removeSong } from '../redux-store/songActions';
 
 const SongList = () => {
   const initialSongs = useSelector((state) => state.songs);
-  const songs = initialSongs || [];
+  const [songs, setSongs] = useState(initialSongs || []);
   const dispatch = useDispatch();
   const [newSongName, setNewSongName] = useState('');
 
   const handleAddSong = () => {
     if (newSongName.trim() !== '') {
+      const updatedSongs = [...songs, newSongName];
+      setSongs(updatedSongs);
       dispatch(addSong(newSongName));
       setNewSongName('');
     }
+  };
+
+  const handleRemoveSong = (index) => {
+    const updatedSongs = songs.filter((song, i) => i !== index);
+    setSongs(updatedSongs);
+    dispatch(removeSong(index));
   };
 
   return (
@@ -29,7 +37,7 @@ const SongList = () => {
         {songs.map((song, index) => (
           <li key={index}>
             {song}
-            <button onClick={() => dispatch(removeSong(index))}>Удалить</button>
+            <button onClick={() => handleRemoveSong(index)}>Удалить</button>
           </li>
         ))}
       </ul>

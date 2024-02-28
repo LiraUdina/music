@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addGenre, removeGenre } from '../redux-store/genreActions';
+import GenreModal from './GenreModal';
 
 const GenreList = () => {
   const genres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
-  const [newGenre, setNewGenre] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleAddGenre = () => {
-    if (newGenre.trim() !== '') {
-      dispatch(addGenre(newGenre));
-      setNewGenre('');
-    }
+  const handleAddGenre = (genre) => {
+    dispatch(addGenre(genre));
+    setIsModalOpen(false);
   };
 
   const handleRemoveGenre = (genre) => {
@@ -21,13 +20,14 @@ const GenreList = () => {
   return (
     <div>
       <h2>Музыкальные жанры</h2>
-      <input
-        type="text"
-        value={newGenre}
-        onChange={(e) => setNewGenre(e.target.value)}
-        placeholder="Введите новый жанр"
+      <button onClick={() => setIsModalOpen(true)}>Добавить жанр</button>
+
+      <GenreModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddGenre={handleAddGenre}
       />
-      <button onClick={handleAddGenre}>Добавить жанр</button>
+
       <ul>
         {genres && genres.map((genre, index) => (
           <li key={index}>
