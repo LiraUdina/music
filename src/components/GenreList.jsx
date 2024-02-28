@@ -40,4 +40,4 @@ const GenreList = () => {
   );
 };
 
-export default GenreList;
+export default GenreList; 
