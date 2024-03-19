@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addGenre, removeGenre } from '../redux-store/genreActions';
-import GenreModal from './GenreModal';
+import { removeGenre } from '../redux-store/genreActions';
+import './modal.css'; 
 
 const GenreList = () => {
   const genres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newGenre, setNewGenre] = useState('');
 
-  const handleAddGenre = (genre) => {
-    dispatch(addGenre(genre));
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleAddGenre = () => {
+    setIsModalOpen(false); 
+    setNewGenre(''); 
   };
 
   const handleRemoveGenre = (genre) => {
@@ -20,14 +29,6 @@ const GenreList = () => {
   return (
     <div>
       <h2>Музыкальные жанры</h2>
-      <button onClick={() => setIsModalOpen(true)}>Добавить жанр</button>
-
-      <GenreModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onAddGenre={handleAddGenre}
-      />
-
       <ul>
         {genres && genres.map((genre, index) => (
           <li key={index}>
@@ -36,8 +37,27 @@ const GenreList = () => {
           </li>
         ))}
       </ul>
+
+      <button className="knopka" onClick={openModal}>Добавить жанр</button>
+
+      {isModalOpen && (
+        <div id="modal" className="modali">
+          <div className="cont">
+            <label htmlFor="phone">Введите жанр</label>
+            <input
+              type="text"
+              id="phone"
+              name="текст"
+              value={newGenre}
+              onChange={(e) => setNewGenre(e.target.value)}
+            />
+            <button className="knopka" onClick={handleAddGenre}>Сохранить</button>
+            <button className="knopka" onClick={closeModal}>Закрыть</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default GenreList; 
+export default GenreList;
