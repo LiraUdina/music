@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeGenre, addGenre } from '../redux-store/genreActions';
 import './modali.css'; 
 
 const GenreList = () => {
-  const genres = useSelector((state) => state.genres);
+  const initialGenres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newGenre, setNewGenre] = useState('');
+  const [addedGenres, setAddedGenres] = useState(() => {
+    const storedGenres = localStorage.getItem('genres');
+    return storedGenres ? JSON.parse(storedGenres) : initialGenres || [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('genres', JSON.stringify(addedGenres));
+  }, [addedGenres]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -20,20 +28,22 @@ const GenreList = () => {
   const handleAddGenre = () => {
     if (newGenre.trim() !== '') {
       dispatch(addGenre(newGenre));
-      setIsModalOpen(false); 
-      setNewGenre(''); 
+      setAddedGenres([...addedGenres, newGenre]);
+      setNewGenre('');
+      setIsModalOpen(false);
     }
   };
 
   const handleRemoveGenre = (genre) => {
     dispatch(removeGenre(genre));
+    setAddedGenres(addedGenres.filter(item => item !== genre));
   };
 
   return (
     <div>
       <h2>Музыкальные жанры</h2>
       <ul>
-        {genres && genres.map((genre, index) => (
+        {addedGenres && addedGenres.map((genre, index) => (
           <li key={index}>
             {genre}
             <button onClick={() => handleRemoveGenre(genre)}>Удалить</button>

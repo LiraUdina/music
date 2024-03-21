@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addSong, removeSong } from '../redux-store/songActions';
+import { removeGenre, addGenre } from '../redux-store/genreActions';
+import './modali.css'; 
 
 const SongList = () => {
   const initialSongs = useSelector((state) => state.songs);
-  const [songs, setSongs] = useState(initialSongs || []);
   const dispatch = useDispatch();
+  const [songs, setSongs] = useState(() => {
+    const storedSongs = localStorage.getItem('songs');
+    return storedSongs ? JSON.parse(storedSongs) : initialSongs || [];
+  });
   const [newSongName, setNewSongName] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('songs', JSON.stringify(songs));
+  }, [songs]);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleAddSong = () => {
     if (newSongName.trim() !== '') {
@@ -14,6 +32,7 @@ const SongList = () => {
       setSongs(updatedSongs);
       dispatch(addSong(newSongName));
       setNewSongName('');
+      closeModal();
     }
   };
 
@@ -26,13 +45,6 @@ const SongList = () => {
   return (
     <div>
       <h2>Музыкальный плейлист</h2>
-      <input
-        type="text"
-        value={newSongName}
-        onChange={(e) => setNewSongName(e.target.value)}
-        placeholder="Введите новую песню"
-      />
-      <button onClick={handleAddSong}>Добавить песню</button>
       <ul>
         {songs.map((song, index) => (
           <li key={index}>
@@ -41,6 +53,26 @@ const SongList = () => {
           </li>
         ))}
       </ul>
+
+      <button className="knopka" onClick={openModal}>Добавить песню</button>
+      
+      {isModalOpen && (
+        <div id="modali" className="modali">
+          <div className="cont">
+            <label htmlFor="songInput">Введите песню</label>
+            <input
+              type="text"
+              id="songInput"
+              name="songInput"
+              value={newSongName}
+              onChange={(e) => setNewSongName(e.target.value)}
+              autoComplete="off"
+            />
+            <button className="knopka" onClick={handleAddSong}>Сохранить</button>
+            <button className="knopka" onClick={closeModal}>Закрыть</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
