@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeGenre } from '../redux-store/genreActions';
-import './modal.css'; 
+import './modali.css'; 
 
 const GenreList = () => {
   const genres = useSelector((state) => state.genres);
@@ -41,15 +41,16 @@ const GenreList = () => {
       <button className="knopka" onClick={openModal}>Добавить жанр</button>
 
       {isModalOpen && (
-        <div id="modal" className="modali">
+        <div id="modal" className="modal">
           <div className="cont">
-            <label htmlFor="phone">Введите жанр</label>
+            <label htmlFor="genreInput">Введите жанр</label>
             <input
               type="text"
-              id="phone"
-              name="текст"
+              id="genreInput"
+              name="genreInput"
               value={newGenre}
               onChange={(e) => setNewGenre(e.target.value)}
+              autoComplete="off"
             />
             <button className="knopka" onClick={handleAddGenre}>Сохранить</button>
             <button className="knopka" onClick={closeModal}>Закрыть</button>
