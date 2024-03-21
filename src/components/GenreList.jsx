@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeGenre } from '../redux-store/genreActions';
+import { removeGenre, addGenre } from '../redux-store/genreActions';
 import './modali.css'; 
 
 const GenreList = () => {
@@ -18,8 +18,11 @@ const GenreList = () => {
   };
 
   const handleAddGenre = () => {
-    setIsModalOpen(false); 
-    setNewGenre(''); 
+    if (newGenre.trim() !== '') {
+      dispatch(addGenre(newGenre));
+      setIsModalOpen(false); 
+      setNewGenre(''); 
+    }
   };
 
   const handleRemoveGenre = (genre) => {
@@ -41,7 +44,7 @@ const GenreList = () => {
       <button className="knopka" onClick={openModal}>Добавить жанр</button>
 
       {isModalOpen && (
-        <div id="modal" className="modal">
+        <div id="modali" className="modali">
           <div className="cont">
             <label htmlFor="genreInput">Введите жанр</label>
             <input

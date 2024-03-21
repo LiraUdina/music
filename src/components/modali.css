@@ -1,4 +1,4 @@
-.modal {
+.modali {
   position: fixed;
   top: 0;
   right: 0;
@@ -8,7 +8,7 @@
   z-index: 999; /* Убедитесь, что z-index выше, чем у других элементов */
 }
 
-.modal:target {
+.modali:target {
   display: block;
 }
 
@@ -37,7 +37,7 @@
 }
 
 @media (min-width: 768px) {
-  .modal ul {
+  .modali ul {
     display: flex;
   }
 }
