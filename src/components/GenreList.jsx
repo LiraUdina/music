@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeGenre, addGenre } from '../redux-store/genreActions';
 import './modali.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
 
 const GenreList = () => {
   const initialGenres = useSelector((state) => state.genres);
@@ -9,7 +11,7 @@ const GenreList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newGenre, setNewGenre] = useState('');
   const [addedGenres, setAddedGenres] = useState(() => {
-    const storedGenres = localStorage.getItem('genres');
+    const storedGenres = localStorage.getItem('geнфкnres');
     return storedGenres ? JSON.parse(storedGenres) : initialGenres || [];
   });
 
@@ -46,12 +48,12 @@ const GenreList = () => {
         {addedGenres && addedGenres.map((genre, index) => (
           <li key={index}>
             {genre}
-            <button onClick={() => handleRemoveGenre(genre)}>Удалить</button>
+            <Button variant="primary"  onClick={() => handleRemoveGenre(genre)}>Удалить</Button>
           </li>
         ))}
       </ul>
 
-      <button className="knopka" onClick={openModal}>Добавить жанр</button>
+      <Button variant="primary" onClick={openModal}>Добавить жанр</Button>
 
       {isModalOpen && (
         <div id="modali" className="modali">
@@ -65,8 +67,8 @@ const GenreList = () => {
               onChange={(e) => setNewGenre(e.target.value)}
               autoComplete="off"
             />
-            <button className="knopka" onClick={handleAddGenre}>Сохранить</button>
-            <button className="knopka" onClick={closeModal}>Закрыть</button>
+            <Button variant="primary" onClick={handleAddGenre}>Сохранить</Button>
+            <Button variant="primary" onClick={closeModal}>Закрыть</Button>
           </div>
         </div>
       )}

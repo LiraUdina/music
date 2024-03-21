@@ -1,18 +1,14 @@
 #root {
-  max-width: 1280px;
+  max-width: 1500px;
   margin: 10;
   padding: 100;
   text-align: center;
-}
-  .my-link {
-  display: flex;
-  gap: 30px; 
-  justify-content: center; 
-  align-items: center;
+  color: blueviolet;
 }
 
-.cat {
-  width: 800px;
-  margin: auto;
-  color: blue;
+.my-link {
+  background-color: aqua;
+  padding: 10px;
+  border-radius: 5px;
+  color: black;
 }

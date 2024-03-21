@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addSong, removeSong } from '../redux-store/songActions';
 import { removeGenre, addGenre } from '../redux-store/genreActions';
 import './modali.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
 
 const SongList = () => {
   const initialSongs = useSelector((state) => state.songs);
@@ -49,12 +51,12 @@ const SongList = () => {
         {songs.map((song, index) => (
           <li key={index}>
             {song}
-            <button onClick={() => handleRemoveSong(index)}>Удалить</button>
+            <Button variant="primary"  onClick={() => handleRemoveSong(index)}>Удалить</Button>
           </li>
         ))}
       </ul>
 
-      <button className="knopka" onClick={openModal}>Добавить песню</button>
+      <Button variant="primary" onClick={openModal}>Добавить песню</Button>
       
       {isModalOpen && (
         <div id="modali" className="modali">
@@ -68,8 +70,8 @@ const SongList = () => {
               onChange={(e) => setNewSongName(e.target.value)}
               autoComplete="off"
             />
-            <button className="knopka" onClick={handleAddSong}>Сохранить</button>
-            <button className="knopka" onClick={closeModal}>Закрыть</button>
+            <Button variant="primary" onClick={handleAddSong}>Сохранить</Button>
+            <Button variant="primary" onClick={closeModal}>Закрыть</Button>
           </div>
         </div>
       )}
